@@ -11,8 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mongoose": "^5.11.97",
     "env": "0.0.2",
     "express": "^4.18.2",
+    "mongodb": "^5.1.0",
+    "mongoose": "^7.0.0",
     "nodemon": "^2.0.20"
   },
   "devDependencies": {
