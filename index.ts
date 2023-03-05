@@ -2,7 +2,7 @@ import express from 'express'
 const port = process.env.PORT || 4000
 const env = require('env')
 const mongoose = require('mongoose')
-const route = require('./routes/user')
+const route = require('./routes/auth')
 
 const app = express()
 const URI = "mongodb+srv://Auspicious:auspicious14@auspicious14.nlnhjxf.mongodb.net/Auspicious14?retryWrites=true&w=majority"
@@ -12,4 +12,4 @@ mongoose.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true})
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use('/user', route)
+app.use( route)
