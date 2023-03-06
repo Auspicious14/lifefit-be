@@ -1,4 +1,6 @@
 const UserSchema = require("../models/user");
+const bcrypt =  require('bcrypt')
+const jwt = require('jsonwebtoken')
 import { Request, Response } from "express";
 
 const handleErrors =(err: any) => {
@@ -18,15 +20,23 @@ const handleErrors =(err: any) => {
 
     return errors;
 }
+const expiresIn = 3 * 24 * 60 * 60
+const createToken = (id: string) => {
+  return jwt.sign({id}, 'lifefit secret key', {expiresIn})
+}
 const signUp = async (req: Request, res: Response) => {
   const { firstName, lastName, email, password } = req.body;
   try {
+    const genSalt = await bcrypt.genSalt()
+    const hashedPassword = await bcrypt.hash(password, genSalt)
     const user = await UserSchema.create({
       firstName,
       lastName,
       email,
-      password,
+      password: hashedPassword,
     });
+    const token = createToken(user._id)
+    res.cookie('jwt', token, {httpOnly: true, maxAge: expiresIn * 1000})
     res.status(201).json(user);
   } catch (err: any) {
       const errors = handleErrors(err)
