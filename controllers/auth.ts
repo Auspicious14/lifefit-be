@@ -25,22 +25,30 @@ const createToken = (id: string) => {
   return jwt.sign({id}, 'lifefit secret key', {expiresIn})
 }
 const signUp = async (req: Request, res: Response) => {
+
+  console.log(req.body)
   const { firstName, lastName, email, password } = req.body;
+
+  console.log(password)
   try {
     const genSalt = await bcrypt.genSalt()
+
+    console.log(genSalt, 'log 1')
     const hashedPassword = await bcrypt.hash(password, genSalt)
+    console.log(hashedPassword, 'log 2')
     const user = await UserSchema.create({
       firstName,
       lastName,
       email,
       password: hashedPassword,
-    });
+    });    
+
     const token = createToken(user._id)
     res.cookie('jwt', token, {httpOnly: true, maxAge: expiresIn * 1000})
-    res.status(201).json(user);
+    res.sendStatus(201).json(user);
   } catch (err: any) {
       const errors = handleErrors(err)
-      res.status(400).json({errors});
+      res.sendStatus(400).json({errors});
   }
 };
 

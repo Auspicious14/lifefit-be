@@ -1,6 +1,7 @@
 import express from 'express'
-const port = process.env.PORT || 4000
-const env = require('env')
+const env = require('dotenv')
+env.config()
+const port = process.env.PORT || 8000
 const mongoose = require('mongoose')
 const route = require('./routes/auth')
 const cookieParser = require('cookie-parser')
