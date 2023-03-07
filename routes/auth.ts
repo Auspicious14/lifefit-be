@@ -1,10 +1,10 @@
-import express from 'express'
-const userController = require('../controllers/auth')
+import express from "express";
+const { signUpUser, getUser, logInUser } = require("../controllers/auth");
+const { verifyToken } = require("../middlewares/authToken");
+const route = express.Router();
 
-const route = express.Router()
+route.get("/", verifyToken, getUser);
+route.post("/signup", signUpUser);
+route.post("/login", logInUser);
 
-route.get('/signin', userController.getUser)
-route.post('/signup', userController.signUp)
-route.post('/login', userController.signUp)
-
-module.exports = route
+module.exports = route;
