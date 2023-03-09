@@ -1,5 +1,5 @@
 import express from "express";
-const env = require("dotenv");
+import env from "dotenv";
 env.config();
 const port = process.env.PORT || 8000;
 const mongoose = require("mongoose");
