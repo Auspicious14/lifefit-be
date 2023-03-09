@@ -12,9 +12,11 @@ const requestOptions = {
 module.exports.getPlaces = async (req: Request, res: Response) => {
   try {
     const response = await fetch(
-      `https://api.geoapify.com/v2/places?categories=commercial.supermarket&filter=circle:-87.770231,41.878968,5000&apiKey=${apiKey}`,
+      `https://api.geoapify.com/v2/places?${req.query.categories}?${req.query.filter}?${req.query.conditions}&apiKey=${apiKey}`,
       requestOptions
     );
+
+    console.log(req.query);
     const data = await response.json();
     const create = await placeModel.create(data);
     res.json(create);
