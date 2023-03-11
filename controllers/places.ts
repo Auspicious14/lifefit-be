@@ -16,11 +16,8 @@ module.exports.getPlaces = async (req: Request, res: Response) => {
       requestOptions
     );
 
-    console.log(req.query.categories);
-    console.log(req.query.filter);
-    console.log(req.query.conditions);
     const data = await response.json();
-    const create = await placeModel.create(data);
+    // const create = await placeModel.create(data);
     res.json(data);
     console.log(data);
   } catch (error) {
