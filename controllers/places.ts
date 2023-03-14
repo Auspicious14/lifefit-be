@@ -12,7 +12,7 @@ const requestOptions = {
 module.exports.getPlaces = async (req: Request, res: Response) => {
   try {
     const response = await fetch(
-      `https://api.geoapify.com/v2/places?categories=${req.query.categories}&filter=${req.query.filter}&conditions=${req.query.conditions}&apiKey=${apiKey}`,
+      `https://api.geoapify.com/v2/places?categories=${req.query.categories}&filter=${req.query.filter}&?conditions=${req.query.conditions}&limit=500&apiKey=${apiKey}`,
       requestOptions
     );
 
